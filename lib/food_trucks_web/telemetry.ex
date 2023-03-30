@@ -1,4 +1,7 @@
 defmodule FoodTrucksWeb.Telemetry do
+  @moduledoc """
+  Telemetry config for FoodTrucksWeb.
+  """
   use Supervisor
   import Telemetry.Metrics
 

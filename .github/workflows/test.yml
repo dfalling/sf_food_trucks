@@ -1,0 +1,51 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+# secrets.CACHE_VERSION used for cache busting.  To ensure it's unique, use: `date +%s`
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgis/postgis:13-3.3
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup the container with elixir, erlang and OTP
+        uses: erlef/setup-beam@v1
+        with:
+          version-file: .tool-versions
+          version-type: strict
+      - uses: actions/cache@v2
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-dependencies-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
+          restore-keys: |
+            ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-dependencies-${{ hashFiles('mix.lock') }}-${{ hashFiles('.tool-versions') }}
+            ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-dependencies-${{ hashFiles('mix.lock') }}-
+            ${{ secrets.CACHE_VERSION }}-${{ runner.os }}-dependencies-
+            ${{ secrets.CACHE_VERSION }}-
+      - name: Get mix dependencies
+        run: mix deps.get
+      - name: Lint
+        run: mix lint
+      - name: Test
+        run: mix test
