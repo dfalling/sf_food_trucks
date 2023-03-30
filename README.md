@@ -6,6 +6,12 @@ This application is built on the data from [sfgov](https://data.sfgov.org/Econom
 
 This project uses [asdf](https://asdf-vm.com/) to manage Elixir, Erlang, and Node.js versions. After installing it, use `asdf install` from the root of this project.
 
+# External Dependencies
+
+- [Postgres](https://www.postgresql.org/)
+- [Postgres PostGIS](https://postgis.net/)
+  Note: for Mac users it's easiest to just run `brew install postgis`
+
 ## Setup
 
 To start your Phoenix server:
