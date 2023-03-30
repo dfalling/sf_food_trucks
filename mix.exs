@@ -79,12 +79,16 @@ defmodule FoodTrucks.MixProject do
         "deps.audit"
       ],
       "assets.setup": [
-        "cmd --cd assets npm run deploy",
         "tailwind.install --if-missing",
         "esbuild.install --if-missing"
       ],
       "assets.build": ["tailwind default", "esbuild default"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": [
+        "cmd --cd assets npm run deploy",
+        "tailwind default --minify",
+        "esbuild default --minify",
+        "phx.digest"
+      ]
     ]
   end
 end

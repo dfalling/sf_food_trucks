@@ -112,4 +112,6 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  config :food_trucks, :google_api_key, System.fetch_env!("GOOGLE_API_KEY")
 end
