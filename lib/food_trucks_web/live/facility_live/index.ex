@@ -5,7 +5,9 @@ defmodule FoodTrucksWeb.FacilityLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :facilities, Food.list_facilities())}
+    {:ok,
+     stream(socket, :facilities, Food.list_facilities())
+     |> assign(:google_api_key, google_api_key())}
   end
 
   @impl true
@@ -17,5 +19,9 @@ defmodule FoodTrucksWeb.FacilityLive.Index do
     socket
     |> assign(:page_title, "Listing Facilities")
     |> assign(:facility, nil)
+  end
+
+  defp google_api_key do
+    Application.get_env(:food_trucks, :google_api_key)
   end
 end

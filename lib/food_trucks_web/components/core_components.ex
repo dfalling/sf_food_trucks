@@ -669,6 +669,83 @@ defmodule FoodTrucksWeb.CoreComponents do
   end
 
   @doc """
+  Component to render clickable tabs for navigation. The tabs will toggle the visibility of DOM elements
+  by id.
+
+  ## Examples
+
+    <.tabnav
+      class="p-2"
+      initial_tab={@selected_responsive_tab}
+    >
+      <:tab title="List" id="elements" />
+      <:tab title="Map" id="map" />
+    </.tabnav>
+    <div id="elements">...</div>
+    <div id="map" class="hidden">...</div>
+  """
+  attr :class, :string, default: ""
+  attr :initial_tab_id, :string, required: true
+
+  slot :tab, required: true do
+    attr :title, :string, required: true
+    attr :id, :string, required: true
+  end
+
+  def tabnav(assigns) do
+    ~H"""
+    <div class={[
+      "border-b border-zinc-100",
+      @class
+    ]}>
+      <nav class="flex space-x-4" aria-label="Tabs" phx-mounted={select_first_tab(@tab)}>
+        <button
+          :for={tab <- @tab}
+          id={tab.id <> "-tab"}
+          class={[
+            "text-gray-500 hover:text-gray-700 rounded-md px-3 py-2 text-sm font-medium",
+            "aria-selected:bg-gray-100 aria-selected:text-gray-700",
+            "text-gray-500 hover:text-gray-700"
+          ]}
+          type="button"
+          role="tab"
+          phx-click={tab_click(tab.id, @tab)}
+        >
+          <%= tab.title %>
+        </button>
+      </nav>
+    </div>
+    """
+  end
+
+  defp tab_click(js \\ %JS{}, tab_id, tabs) do
+    Enum.reduce(tabs, js, fn tab, js ->
+      if tab.id == tab_id do
+        show_tab(js, tab_id)
+      else
+        hide_tab(js, tab.id)
+      end
+    end)
+  end
+
+  defp show_tab(js, tab_id) do
+    js
+    |> JS.show(to: "##{tab_id}")
+    |> JS.set_attribute({"aria-selected", true}, to: "##{tab_id}-tab")
+  end
+
+  defp hide_tab(js, tab_id) do
+    js
+    |> JS.hide(to: "##{tab_id}")
+    |> JS.remove_attribute("aria-selected", to: "##{tab_id}-tab")
+  end
+
+  defp select_first_tab(js \\ %JS{}, tabs) do
+    tab = Enum.at(tabs, 0)
+    show_tab(js, tab.id)
+  end
+
+  @doc """
   Translates an error message using gettext.
   """
   def translate_error({msg, opts}) do

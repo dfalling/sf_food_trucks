@@ -2,28 +2,66 @@
   Listing Facilities
 </.header>
 
-<.table
-  id="facilities"
-  rows={@streams.facilities}
-  row_click={fn {_id, facility} -> JS.navigate(~p"/facilities/#{facility}") end}
+<.tabnav class="p-2" initial_tab_id="facilities-list">
+  <:tab title="List" id="facilities-list" />
+  <:tab title="Map" id="facilities-map" />
+</.tabnav>
+
+<div id="facilities-list">
+  <.table
+    id="facilities"
+    rows={@streams.facilities}
+    row_click={fn {_id, facility} -> JS.navigate(~p"/facilities/#{facility}") end}
+  >
+    <:col :let={{_id, facility}} label="Location"><%= facility.location_id %></:col>
+    <:col :let={{_id, facility}} label="Applicant"><%= facility.applicant %></:col>
+    <:col :let={{_id, facility}} label="Facility type">
+      <.facility_type facility_type={facility.facility_type} />
+    </:col>
+    <:col :let={{_id, facility}} label="Location description">
+      <%= facility.location_description %>
+    </:col>
+    <:col :let={{_id, facility}} label="Address"><%= facility.address %></:col>
+    <:col :let={{_id, facility}} label="Status">
+      <.facility_status status={facility.status} />
+    </:col>
+    <:col :let={{_id, facility}} label="Food items"><%= facility.food_items %></:col>
+    <:col :let={{_id, facility}} label="Days hours"><%= facility.days_hours %></:col>
+    <:action :let={{_id, facility}}>
+      <div class="sr-only">
+        <.link navigate={~p"/facilities/#{facility}"}>Show</.link>
+      </div>
+    </:action>
+  </.table>
+</div>
+<lit-google-map
+  id="facilities-map"
+  api-key={@google_api_key}
+  version="weekly"
+  fit-to-markers
+  class="w-full h-96 hidden"
+  phx-hook="PhoenixCustomEvent"
 >
-  <:col :let={{_id, facility}} label="Location"><%= facility.location_id %></:col>
-  <:col :let={{_id, facility}} label="Applicant"><%= facility.applicant %></:col>
-  <:col :let={{_id, facility}} label="Facility type">
-    <.facility_type facility_type={facility.facility_type} />
-  </:col>
-  <:col :let={{_id, facility}} label="Location description">
-    <%= facility.location_description %>
-  </:col>
-  <:col :let={{_id, facility}} label="Address"><%= facility.address %></:col>
-  <:col :let={{_id, facility}} label="Status">
-    <.facility_status status={facility.status} />
-  </:col>
-  <:col :let={{_id, facility}} label="Food items"><%= facility.food_items %></:col>
-  <:col :let={{_id, facility}} label="Days hours"><%= facility.days_hours %></:col>
-  <:action :let={{_id, facility}}>
-    <div class="sr-only">
-      <.link navigate={~p"/facilities/#{facility}"}>Show</.link>
-    </div>
-  </:action>
-</.table>
+  <lit-google-map-marker
+    :for={{id, facility} <- @streams.facilities}
+    slot="markers"
+    latitude={facility.latitude}
+    longitude={facility.longitude}
+    id={id <> "-marker"}
+  >
+    <.list>
+      <:item title="Applicant"><%= facility.applicant %></:item>
+      <:item title="Facility type">
+        <.facility_type facility_type={facility.facility_type} />
+      </:item>
+      <:item title="Address"><%= facility.address %></:item>
+      <:item title="Status">
+        <.facility_status status={facility.status} />
+      </:item>
+      <:item title="Food items"><%= facility.food_items %></:item>
+      <:item :if={facility.schedule} title="Schedule">
+        <a href={facility.schedule} target="_blank">View...</a>
+      </:item>
+    </.list>
+  </lit-google-map-marker>
+</lit-google-map>

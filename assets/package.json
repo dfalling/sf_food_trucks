@@ -1,0 +1,13 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "scripts": {
+    "deploy": "npm i"
+  },
+  "dependencies": {
+    "lit-google-map": "dfalling/lit-google-map#7307b08",
+    "phoenix-custom-event-hook": "0.0.6"
+  }
+}
