@@ -24,7 +24,7 @@ defmodule FoodTrucks.Repo.Migrations.CreateFacilities do
       add :days_hours, :text
       add :noi_sent, :naive_datetime
       add :approved, :naive_datetime
-      add :received, :naive_datetime
+      add :received, :string
       add :prior_permit, :boolean, default: false, null: false
       add :expiration_date, :naive_datetime
 

@@ -66,7 +66,7 @@ defmodule FoodTrucks.FoodTest do
         noi_sent: ~N[2023-03-29 07:31:00],
         permit: "some permit",
         prior_permit: true,
-        received: ~N[2023-03-29 07:31:00],
+        received: "20151231",
         schedule: "some schedule",
         status: "REQUESTED",
         x: 120.5,
@@ -94,7 +94,7 @@ defmodule FoodTrucks.FoodTest do
       assert facility.noi_sent == ~N[2023-03-29 07:31:00]
       assert facility.permit == "some permit"
       assert facility.prior_permit == true
-      assert facility.received == ~N[2023-03-29 07:31:00]
+      assert facility.received == "20151231"
       assert facility.schedule == "some schedule"
       assert facility.status == Status.Requested
       assert facility.x == 120.5
@@ -127,7 +127,7 @@ defmodule FoodTrucks.FoodTest do
         noi_sent: ~N[2023-03-30 07:31:00],
         permit: "some updated permit",
         prior_permit: false,
-        received: ~N[2023-03-30 07:31:00],
+        received: "20171231",
         schedule: "some updated schedule",
         status: "APPROVED",
         x: 456.7,
@@ -153,7 +153,7 @@ defmodule FoodTrucks.FoodTest do
       assert facility.noi_sent == ~N[2023-03-30 07:31:00]
       assert facility.permit == "some updated permit"
       assert facility.prior_permit == false
-      assert facility.received == ~N[2023-03-30 07:31:00]
+      assert facility.received == "20171231"
       assert facility.schedule == "some updated schedule"
       assert facility.status == Status.Approved
       assert facility.x == 456.7

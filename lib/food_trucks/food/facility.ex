@@ -36,7 +36,7 @@ defmodule FoodTrucks.Food.Facility do
     field :noi_sent, :naive_datetime
     field :permit, :string
     field :prior_permit, :boolean, default: false
-    field :received, :naive_datetime
+    field :received, :string
     field :schedule, :string
     field :status, Status
     field :x, :float
@@ -73,6 +73,7 @@ defmodule FoodTrucks.Food.Facility do
       :prior_permit,
       :expiration_date
     ])
+    |> populate_geometry()
     |> validate_required([
       :location_id,
       :applicant,
@@ -85,20 +86,43 @@ defmodule FoodTrucks.Food.Facility do
       :lot,
       :permit,
       :status,
-      :food_items,
       :x,
       :y,
       :latitude,
       :longitude,
       :schedule,
-      :days_hours,
-      :noi_sent,
-      :approved,
-      :received,
       :prior_permit,
-      :expiration_date
+      :expiration_date,
+      :geometry
     ])
     |> FacilityType.validate(:facility_type)
     |> Status.validate(:status)
+  end
+
+  defp populate_geometry(changeset) do
+    # only update geometry if latitude or longitude changed
+    has_change = not is_nil(get_change(changeset, :latitude) || get_change(changeset, :longitude))
+
+    if has_change do
+      # use from get_field in case only one is updated
+      latitude = get_field(changeset, :latitude)
+      longitude = get_field(changeset, :longitude)
+
+      geometry = %Geo.Point{
+        srid: 4326,
+        coordinates: {
+          longitude,
+          latitude
+        }
+      }
+
+      changeset
+      |> put_change(
+        :geometry,
+        geometry
+      )
+    else
+      changeset
+    end
   end
 end

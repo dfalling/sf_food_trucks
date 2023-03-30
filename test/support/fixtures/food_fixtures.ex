@@ -32,7 +32,7 @@ defmodule FoodTrucks.FoodFixtures do
         noi_sent: ~N[2023-03-29 07:31:00],
         permit: "some permit",
         prior_permit: true,
-        received: ~N[2023-03-29 07:31:00],
+        received: "20151231",
         schedule: "some schedule",
         status: Status.value(Status.Requested),
         x: 120.5,
