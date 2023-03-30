@@ -35,3 +35,4 @@ food_trucks-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.envrc

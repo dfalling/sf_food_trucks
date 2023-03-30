@@ -61,6 +61,8 @@ config :phoenix, :json_library, Jason
 
 config :food_trucks, FoodTrucks.Repo, types: FoodTrucks.PostgrexTypes
 
+config :food_trucks, :google_api_key, System.get_env("GOOGLE_API_KEY")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
