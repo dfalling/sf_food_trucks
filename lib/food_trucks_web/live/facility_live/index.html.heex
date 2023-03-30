@@ -1,10 +1,5 @@
 <.header>
   Listing Facilities
-  <:actions>
-    <.link patch={~p"/facilities/new"}>
-      <.button>New Facility</.button>
-    </.link>
-  </:actions>
 </.header>
 
 <.table
@@ -16,7 +11,9 @@
   <:col :let={{_id, facility}} label="Applicant"><%= facility.applicant %></:col>
   <:col :let={{_id, facility}} label="Facility type"><%= facility.facility_type %></:col>
   <:col :let={{_id, facility}} label="Cnn"><%= facility.cnn %></:col>
-  <:col :let={{_id, facility}} label="Location description"><%= facility.location_description %></:col>
+  <:col :let={{_id, facility}} label="Location description">
+    <%= facility.location_description %>
+  </:col>
   <:col :let={{_id, facility}} label="Address"><%= facility.address %></:col>
   <:col :let={{_id, facility}} label="Blocklot"><%= facility.blocklot %></:col>
   <:col :let={{_id, facility}} label="Block"><%= facility.block %></:col>
@@ -39,25 +36,5 @@
     <div class="sr-only">
       <.link navigate={~p"/facilities/#{facility}"}>Show</.link>
     </div>
-    <.link patch={~p"/facilities/#{facility}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, facility}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: facility.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
   </:action>
 </.table>
-
-<.modal :if={@live_action in [:new, :edit]} id="facility-modal" show on_cancel={JS.patch(~p"/facilities")}>
-  <.live_component
-    module={FoodTrucksWeb.FacilityLive.FormComponent}
-    id={@facility.id || :new}
-    title={@page_title}
-    action={@live_action}
-    facility={@facility}
-    patch={~p"/facilities"}
-  />
-</.modal>

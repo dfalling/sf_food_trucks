@@ -19,6 +19,7 @@ defmodule FoodTrucks.Repo.Migrations.CreateFacilities do
       add :y, :float
       add :latitude, :float
       add :longitude, :float
+      add :geometry, :geometry
       add :schedule, :text
       add :days_hours, :text
       add :noi_sent, :naive_datetime

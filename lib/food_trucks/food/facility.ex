@@ -1,4 +1,7 @@
 defmodule FoodTrucks.Food.Facility do
+  @moduledoc """
+  Schema for a Facility (either a food truck or a food cart.)
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -33,7 +36,55 @@ defmodule FoodTrucks.Food.Facility do
   @doc false
   def changeset(facility, attrs) do
     facility
-    |> cast(attrs, [:location_id, :applicant, :facility_type, :cnn, :location_description, :address, :blocklot, :block, :lot, :permit, :status, :food_items, :x, :y, :latitude, :longitude, :schedule, :days_hours, :noi_sent, :approved, :received, :prior_permit, :expiration_date])
-    |> validate_required([:location_id, :applicant, :facility_type, :cnn, :location_description, :address, :blocklot, :block, :lot, :permit, :status, :food_items, :x, :y, :latitude, :longitude, :schedule, :days_hours, :noi_sent, :approved, :received, :prior_permit, :expiration_date])
+    |> cast(attrs, [
+      :location_id,
+      :applicant,
+      :facility_type,
+      :cnn,
+      :location_description,
+      :address,
+      :blocklot,
+      :block,
+      :lot,
+      :permit,
+      :status,
+      :food_items,
+      :x,
+      :y,
+      :latitude,
+      :longitude,
+      :schedule,
+      :days_hours,
+      :noi_sent,
+      :approved,
+      :received,
+      :prior_permit,
+      :expiration_date
+    ])
+    |> validate_required([
+      :location_id,
+      :applicant,
+      :facility_type,
+      :cnn,
+      :location_description,
+      :address,
+      :blocklot,
+      :block,
+      :lot,
+      :permit,
+      :status,
+      :food_items,
+      :x,
+      :y,
+      :latitude,
+      :longitude,
+      :schedule,
+      :days_hours,
+      :noi_sent,
+      :approved,
+      :received,
+      :prior_permit,
+      :expiration_date
+    ])
   end
 end
