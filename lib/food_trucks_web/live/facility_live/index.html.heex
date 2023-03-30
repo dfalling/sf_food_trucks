@@ -1,0 +1,25 @@
+<.header>
+  Listing Facilities
+</.header>
+
+<.table
+  id="facilities"
+  rows={@streams.facilities}
+  row_click={fn {_id, facility} -> JS.navigate(~p"/facilities/#{facility}") end}
+>
+  <:col :let={{_id, facility}} label="Location"><%= facility.location_id %></:col>
+  <:col :let={{_id, facility}} label="Applicant"><%= facility.applicant %></:col>
+  <:col :let={{_id, facility}} label="Facility type"><%= facility.facility_type %></:col>
+  <:col :let={{_id, facility}} label="Location description">
+    <%= facility.location_description %>
+  </:col>
+  <:col :let={{_id, facility}} label="Address"><%= facility.address %></:col>
+  <:col :let={{_id, facility}} label="Status"><%= facility.status %></:col>
+  <:col :let={{_id, facility}} label="Food items"><%= facility.food_items %></:col>
+  <:col :let={{_id, facility}} label="Days hours"><%= facility.days_hours %></:col>
+  <:action :let={{_id, facility}}>
+    <div class="sr-only">
+      <.link navigate={~p"/facilities/#{facility}"}>Show</.link>
+    </div>
+  </:action>
+</.table>
