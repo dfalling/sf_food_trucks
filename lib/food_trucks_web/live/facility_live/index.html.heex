@@ -1,0 +1,63 @@
+<.header>
+  Listing Facilities
+  <:actions>
+    <.link patch={~p"/facilities/new"}>
+      <.button>New Facility</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="facilities"
+  rows={@streams.facilities}
+  row_click={fn {_id, facility} -> JS.navigate(~p"/facilities/#{facility}") end}
+>
+  <:col :let={{_id, facility}} label="Location"><%= facility.location_id %></:col>
+  <:col :let={{_id, facility}} label="Applicant"><%= facility.applicant %></:col>
+  <:col :let={{_id, facility}} label="Facility type"><%= facility.facility_type %></:col>
+  <:col :let={{_id, facility}} label="Cnn"><%= facility.cnn %></:col>
+  <:col :let={{_id, facility}} label="Location description"><%= facility.location_description %></:col>
+  <:col :let={{_id, facility}} label="Address"><%= facility.address %></:col>
+  <:col :let={{_id, facility}} label="Blocklot"><%= facility.blocklot %></:col>
+  <:col :let={{_id, facility}} label="Block"><%= facility.block %></:col>
+  <:col :let={{_id, facility}} label="Lot"><%= facility.lot %></:col>
+  <:col :let={{_id, facility}} label="Permit"><%= facility.permit %></:col>
+  <:col :let={{_id, facility}} label="Status"><%= facility.status %></:col>
+  <:col :let={{_id, facility}} label="Food items"><%= facility.food_items %></:col>
+  <:col :let={{_id, facility}} label="X"><%= facility.x %></:col>
+  <:col :let={{_id, facility}} label="Y"><%= facility.y %></:col>
+  <:col :let={{_id, facility}} label="Latitude"><%= facility.latitude %></:col>
+  <:col :let={{_id, facility}} label="Longitude"><%= facility.longitude %></:col>
+  <:col :let={{_id, facility}} label="Schedule"><%= facility.schedule %></:col>
+  <:col :let={{_id, facility}} label="Days hours"><%= facility.days_hours %></:col>
+  <:col :let={{_id, facility}} label="Noi sent"><%= facility.noi_sent %></:col>
+  <:col :let={{_id, facility}} label="Approved"><%= facility.approved %></:col>
+  <:col :let={{_id, facility}} label="Received"><%= facility.received %></:col>
+  <:col :let={{_id, facility}} label="Prior permit"><%= facility.prior_permit %></:col>
+  <:col :let={{_id, facility}} label="Expiration date"><%= facility.expiration_date %></:col>
+  <:action :let={{_id, facility}}>
+    <div class="sr-only">
+      <.link navigate={~p"/facilities/#{facility}"}>Show</.link>
+    </div>
+    <.link patch={~p"/facilities/#{facility}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, facility}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: facility.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="facility-modal" show on_cancel={JS.patch(~p"/facilities")}>
+  <.live_component
+    module={FoodTrucksWeb.FacilityLive.FormComponent}
+    id={@facility.id || :new}
+    title={@page_title}
+    action={@live_action}
+    facility={@facility}
+    patch={~p"/facilities"}
+  />
+</.modal>

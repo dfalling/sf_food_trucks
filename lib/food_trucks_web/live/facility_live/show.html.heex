@@ -1,0 +1,48 @@
+<.header>
+  Facility <%= @facility.id %>
+  <:subtitle>This is a facility record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/facilities/#{@facility}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit facility</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Location"><%= @facility.location_id %></:item>
+  <:item title="Applicant"><%= @facility.applicant %></:item>
+  <:item title="Facility type"><%= @facility.facility_type %></:item>
+  <:item title="Cnn"><%= @facility.cnn %></:item>
+  <:item title="Location description"><%= @facility.location_description %></:item>
+  <:item title="Address"><%= @facility.address %></:item>
+  <:item title="Blocklot"><%= @facility.blocklot %></:item>
+  <:item title="Block"><%= @facility.block %></:item>
+  <:item title="Lot"><%= @facility.lot %></:item>
+  <:item title="Permit"><%= @facility.permit %></:item>
+  <:item title="Status"><%= @facility.status %></:item>
+  <:item title="Food items"><%= @facility.food_items %></:item>
+  <:item title="X"><%= @facility.x %></:item>
+  <:item title="Y"><%= @facility.y %></:item>
+  <:item title="Latitude"><%= @facility.latitude %></:item>
+  <:item title="Longitude"><%= @facility.longitude %></:item>
+  <:item title="Schedule"><%= @facility.schedule %></:item>
+  <:item title="Days hours"><%= @facility.days_hours %></:item>
+  <:item title="Noi sent"><%= @facility.noi_sent %></:item>
+  <:item title="Approved"><%= @facility.approved %></:item>
+  <:item title="Received"><%= @facility.received %></:item>
+  <:item title="Prior permit"><%= @facility.prior_permit %></:item>
+  <:item title="Expiration date"><%= @facility.expiration_date %></:item>
+</.list>
+
+<.back navigate={~p"/facilities"}>Back to facilities</.back>
+
+<.modal :if={@live_action == :edit} id="facility-modal" show on_cancel={JS.patch(~p"/facilities/#{@facility}")}>
+  <.live_component
+    module={FoodTrucksWeb.FacilityLive.FormComponent}
+    id={@facility.id}
+    title={@page_title}
+    action={@live_action}
+    facility={@facility}
+    patch={~p"/facilities/#{@facility}"}
+  />
+</.modal>
