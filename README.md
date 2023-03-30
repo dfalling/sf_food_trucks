@@ -1,5 +1,7 @@
 # Food Trucks
 
+[Repo](https://github.com/dfalling/sf_food_trucks) | [Issues](https://github.com/dfalling/sf_food_trucks/issues) | [Production](https://small-paper-9214.fly.dev/)
+
 This application is built on the data from [sfgov](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data) to provide information about San Francisco food trucks and food carts.
 
 ## Software Versions
