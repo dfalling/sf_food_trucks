@@ -1,4 +1,12 @@
-# FoodTrucks
+# Food Trucks
+
+This application is built on the data from [sfgov](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data) to provide information about San Francisco food trucks and food carts.
+
+## Software Versions
+
+This project uses [asdf](https://asdf-vm.com/) to manage Elixir, Erlang, and Node.js versions. After installing it, use `asdf install` from the root of this project.
+
+## Setup
 
 To start your Phoenix server:
 
@@ -6,8 +14,6 @@ To start your Phoenix server:
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more
 
