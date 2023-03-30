@@ -4,6 +4,9 @@ defmodule FoodTrucks.FoodFixtures do
   entities via the `FoodTrucks.Food` context.
   """
 
+  alias FoodTrucks.Food.Facility.FacilityType
+  alias FoodTrucks.Food.Facility.Status
+
   @doc """
   Generate a facility.
   """
@@ -19,7 +22,7 @@ defmodule FoodTrucks.FoodFixtures do
         cnn: 42,
         days_hours: "some days_hours",
         expiration_date: ~N[2023-03-29 07:31:00],
-        facility_type: "some facility_type",
+        facility_type: FacilityType.value(FacilityType.Truck),
         food_items: "some food_items",
         latitude: 120.5,
         location_description: "some location_description",
@@ -31,7 +34,7 @@ defmodule FoodTrucks.FoodFixtures do
         prior_permit: true,
         received: ~N[2023-03-29 07:31:00],
         schedule: "some schedule",
-        status: "some status",
+        status: Status.value(Status.Requested),
         x: 120.5,
         y: 120.5
       })

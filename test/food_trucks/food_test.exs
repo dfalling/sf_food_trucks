@@ -5,6 +5,8 @@ defmodule FoodTrucks.FoodTest do
 
   describe "facilities" do
     alias FoodTrucks.Food.Facility
+    alias FoodTrucks.Food.Facility.FacilityType
+    alias FoodTrucks.Food.Facility.Status
 
     import FoodTrucks.FoodFixtures
 
@@ -54,7 +56,7 @@ defmodule FoodTrucks.FoodTest do
         cnn: 42,
         days_hours: "some days_hours",
         expiration_date: ~N[2023-03-29 07:31:00],
-        facility_type: "some facility_type",
+        facility_type: "Truck",
         food_items: "some food_items",
         latitude: 120.5,
         location_description: "some location_description",
@@ -66,7 +68,7 @@ defmodule FoodTrucks.FoodTest do
         prior_permit: true,
         received: ~N[2023-03-29 07:31:00],
         schedule: "some schedule",
-        status: "some status",
+        status: "REQUESTED",
         x: 120.5,
         y: 120.5
       }
@@ -80,8 +82,10 @@ defmodule FoodTrucks.FoodTest do
       assert facility.cnn == 42
       assert facility.days_hours == "some days_hours"
       assert facility.expiration_date == ~N[2023-03-29 07:31:00]
-      assert facility.facility_type == "some facility_type"
+
+      assert facility.facility_type == FacilityType.Truck
       assert facility.food_items == "some food_items"
+
       assert facility.latitude == 120.5
       assert facility.location_description == "some location_description"
       assert facility.location_id == 42
@@ -92,7 +96,7 @@ defmodule FoodTrucks.FoodTest do
       assert facility.prior_permit == true
       assert facility.received == ~N[2023-03-29 07:31:00]
       assert facility.schedule == "some schedule"
-      assert facility.status == "some status"
+      assert facility.status == Status.Requested
       assert facility.x == 120.5
       assert facility.y == 120.5
     end
@@ -113,7 +117,7 @@ defmodule FoodTrucks.FoodTest do
         cnn: 43,
         days_hours: "some updated days_hours",
         expiration_date: ~N[2023-03-30 07:31:00],
-        facility_type: "some updated facility_type",
+        facility_type: "Push Cart",
         food_items: "some updated food_items",
         latitude: 456.7,
         location_description: "some updated location_description",
@@ -125,7 +129,7 @@ defmodule FoodTrucks.FoodTest do
         prior_permit: false,
         received: ~N[2023-03-30 07:31:00],
         schedule: "some updated schedule",
-        status: "some updated status",
+        status: "APPROVED",
         x: 456.7,
         y: 456.7
       }
@@ -139,7 +143,7 @@ defmodule FoodTrucks.FoodTest do
       assert facility.cnn == 43
       assert facility.days_hours == "some updated days_hours"
       assert facility.expiration_date == ~N[2023-03-30 07:31:00]
-      assert facility.facility_type == "some updated facility_type"
+      assert facility.facility_type == FacilityType.PushCart
       assert facility.food_items == "some updated food_items"
       assert facility.latitude == 456.7
       assert facility.location_description == "some updated location_description"
@@ -151,7 +155,7 @@ defmodule FoodTrucks.FoodTest do
       assert facility.prior_permit == false
       assert facility.received == ~N[2023-03-30 07:31:00]
       assert facility.schedule == "some updated schedule"
-      assert facility.status == "some updated status"
+      assert facility.status == Status.Approved
       assert facility.x == 456.7
       assert facility.y == 456.7
     end

@@ -2,10 +2,21 @@ defmodule FoodTrucks.Food.Facility do
   @moduledoc """
   Schema for a Facility (either a food truck or a food cart.)
   """
-  use Ecto.Schema
+  use TypedEctoSchema
+  use EnumType
   import Ecto.Changeset
 
-  schema "facilities" do
+  defenum FacilityType do
+    value(PushCart, "Push Cart")
+    value(Truck, "Truck")
+  end
+
+  defenum Status do
+    value(Approved, "APPROVED")
+    value(Requested, "REQUESTED")
+  end
+
+  typed_schema "facilities" do
     field :address, :string
     field :applicant, :string
     field :approved, :naive_datetime
@@ -14,10 +25,11 @@ defmodule FoodTrucks.Food.Facility do
     field :cnn, :integer
     field :days_hours, :string
     field :expiration_date, :naive_datetime
-    field :facility_type, :string
+    field :facility_type, FacilityType
     field :food_items, :string
     field :latitude, :float
     field :location_description, :string
+    field(:geometry, Geo.PostGIS.Geometry) :: Geo.Point.t()
     field :location_id, :integer
     field :longitude, :float
     field :lot, :string
@@ -26,7 +38,7 @@ defmodule FoodTrucks.Food.Facility do
     field :prior_permit, :boolean, default: false
     field :received, :naive_datetime
     field :schedule, :string
-    field :status, :string
+    field :status, Status
     field :x, :float
     field :y, :float
 
@@ -86,5 +98,7 @@ defmodule FoodTrucks.Food.Facility do
       :prior_permit,
       :expiration_date
     ])
+    |> FacilityType.validate(:facility_type)
+    |> Status.validate(:status)
   end
 end

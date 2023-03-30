@@ -52,7 +52,10 @@ defmodule FoodTrucks.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.0", only: [:dev, :test], runtime: false},
-      {:geo_postgis, "~> 3.4"}
+      {:geo_postgis, "~> 3.4"},
+      {:enum_type, "~> 1.1.0"},
+      {:mix_test_watch, "~> 1.1.0", only: :dev, runtime: false},
+      {:typed_ecto_schema, "~> 0.4.0"}
     ]
   end
 
