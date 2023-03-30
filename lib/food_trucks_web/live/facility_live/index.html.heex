@@ -49,8 +49,8 @@
     longitude={facility.longitude}
     id={id <> "-marker"}
   >
+    <strong><%= facility.applicant %></strong>
     <.list>
-      <:item title="Applicant"><%= facility.applicant %></:item>
       <:item title="Facility type">
         <.facility_type facility_type={facility.facility_type} />
       </:item>
