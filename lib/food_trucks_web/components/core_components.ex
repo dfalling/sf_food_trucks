@@ -10,6 +10,8 @@ defmodule FoodTrucksWeb.CoreComponents do
   """
   use Phoenix.Component
 
+  alias FoodTrucks.Food.Facility.FacilityType
+  alias FoodTrucks.Food.Facility.Status
   alias Phoenix.HTML.Form
   alias Phoenix.LiveView.JS
   import FoodTrucksWeb.Gettext
@@ -652,19 +654,19 @@ defmodule FoodTrucksWeb.CoreComponents do
     |> JS.pop_focus()
   end
 
-  attr :status, FoodTrucks.Food.Facility.Status.type(), required: true
+  attr :status, Status.type(), required: true
 
   def facility_status(assigns) do
     ~H"""
-    <%= FoodTrucks.Food.Facility.Status.value(@status) %>
+    <%= Status.value(@status) %>
     """
   end
 
-  attr :facility_type, FoodTrucks.Food.Facility.FacilityType.type(), required: true
+  attr :facility_type, FacilityType.type(), required: true
 
   def facility_type(assigns) do
     ~H"""
-    <%= FoodTrucks.Food.Facility.FacilityType.value(@facility_type) %>
+    <%= FacilityType.value(@facility_type) %>
     """
   end
 
