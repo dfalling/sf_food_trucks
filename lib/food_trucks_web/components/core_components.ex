@@ -652,6 +652,22 @@ defmodule FoodTrucksWeb.CoreComponents do
     |> JS.pop_focus()
   end
 
+  attr :status, FoodTrucks.Food.Facility.Status.type(), required: true
+
+  def facility_status(assigns) do
+    ~H"""
+    <%= FoodTrucks.Food.Facility.Status.value(@status) %>
+    """
+  end
+
+  attr :facility_type, FoodTrucks.Food.Facility.FacilityType.type(), required: true
+
+  def facility_type(assigns) do
+    ~H"""
+    <%= FoodTrucks.Food.Facility.FacilityType.value(@facility_type) %>
+    """
+  end
+
   @doc """
   Translates an error message using gettext.
   """

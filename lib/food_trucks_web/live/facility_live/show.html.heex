@@ -6,7 +6,9 @@
 <.list>
   <:item title="Location"><%= @facility.location_id %></:item>
   <:item title="Applicant"><%= @facility.applicant %></:item>
-  <:item title="Facility type"><%= @facility.facility_type %></:item>
+  <:item title="Facility type">
+    <.facility_type facility_type={@facility.facility_type} />
+  </:item>
   <:item title="Cnn"><%= @facility.cnn %></:item>
   <:item title="Location description"><%= @facility.location_description %></:item>
   <:item title="Address"><%= @facility.address %></:item>
@@ -14,7 +16,9 @@
   <:item title="Block"><%= @facility.block %></:item>
   <:item title="Lot"><%= @facility.lot %></:item>
   <:item title="Permit"><%= @facility.permit %></:item>
-  <:item title="Status"><%= @facility.status %></:item>
+  <:item title="Status">
+    <.facility_status status={@facility.status} />
+  </:item>
   <:item title="Food items"><%= @facility.food_items %></:item>
   <:item title="X"><%= @facility.x %></:item>
   <:item title="Y"><%= @facility.y %></:item>
